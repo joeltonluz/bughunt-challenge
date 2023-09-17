@@ -43,3 +43,14 @@ Content-Type: application/json
 ###
 DELETE {{URL}}/books/{{BOOK_ID}}
 
+### CADASTRO DE USUÁRIO ###################################################
+POST {{URL}}/user
+Content-Type: application/json
+
+{
+  "name": "Joelton Lino Luz",
+  "email": "joelton@live.com",
+  "password": "senha!Forte",
+  "type": "administrador"
+}
+

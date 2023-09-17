@@ -5,6 +5,8 @@ import { HttpModule } from '@nestjs/axios';
 import { BookFactoryModule } from 'src/usecases/factories/book-factory.module';
 import { BookController } from './book.controller';
 import { DatabaseModule } from '../database/database.module';
+import { UserFactoryModule } from 'src/usecases/factories/user-factory.module';
+import { UserController } from './user.controller';
 
 @Module({
   imports: [
@@ -12,8 +14,9 @@ import { DatabaseModule } from '../database/database.module';
     HttpModule,
     DatabaseModule,
     BookFactoryModule.register(),
+    UserFactoryModule.register(),
   ],
-  controllers: [HealthController, BookController],
+  controllers: [HealthController, BookController, UserController],
   providers: [],
 })
 export class ControllersModule {}
