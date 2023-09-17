@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { UserFactoryModule } from 'src/usecases/factories/user-factory.module';
 import { PostUserUseCase } from 'src/usecases/user/postUser.usecase';
+import { UserDto } from './dto/user.dto';
 
 @Controller('user')
 export class UserController {
@@ -18,7 +19,7 @@ export class UserController {
 
   @HttpCode(HttpStatus.CREATED)
   @Post()
-  async postUser(@Body() user: any) {
+  async postUser(@Body() user: UserDto) {
     return await this.postUserUc.execute(user);
   }
 }

@@ -50,7 +50,7 @@ Content-Type: application/json
 {
   "name": "Joelton Lino Luz",
   "email": "joelton@live.com",
-  "password": "senha!Forte",
+  "password": "senha",
   "type": "administrador"
 }
 
