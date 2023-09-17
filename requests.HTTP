@@ -1,3 +1,45 @@
 @URL=http://localhost:3000
+@BOOK_ID=650712a1950f219d49aa7b06
 ### Healthy Check
 GET {{URL}}/health-check
+
+###
+POST {{URL}}/books
+content-type: application/json
+
+{
+  "title": "Biblía Sagrada",
+  "author": "Apostolos",
+  "available": true
+}
+
+###
+GET {{URL}}/books
+
+###
+GET {{URL}}/books/available
+
+###
+GET {{URL}}/books/{{BOOK_ID}}
+
+###
+PUT {{URL}}/books/{{BOOK_ID}}
+Content-Type: application/json
+
+{
+  "title": "Biblía Sagrada",
+  "author": "Apostolos"
+}
+
+###
+
+PUT {{URL}}/books/available/{{BOOK_ID}}
+Content-Type: application/json
+
+{
+  "available": false
+}
+
+###
+DELETE {{URL}}/books/{{BOOK_ID}}
+
