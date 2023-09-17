@@ -7,6 +7,7 @@ import {
   DiskHealthIndicator,
   HttpHealthIndicator,
 } from '@nestjs/terminus';
+import { PrismaService } from '../database/prisma/prisma.service';
 
 @Controller('health-check')
 export class HealthController {
@@ -15,13 +16,15 @@ export class HealthController {
     private readonly prismaOrmCheck: PrismaHealthIndicator,
     private readonly diskCheck: DiskHealthIndicator,
     private readonly http: HttpHealthIndicator,
+    private readonly prismaService: PrismaService,
   ) {}
 
   @Get()
   @HealthCheck()
   async check() {
     return await this.healthCheck.check([
-      //() => this.prismaOrmCheck.pingCheck('database'),
+      ,
+      // () => this.prismaService.$queryRaw`SELECT 1`,
       () =>
         this.diskCheck.checkStorage('storage', {
           thresholdPercent: 0.9,
