@@ -10,7 +10,6 @@ export class PostUserUseCase {
 
   async execute(user: UserM): Promise<UserM> {
     this.logger.log('User Usecase', 'Inserting one user !');
-    await this.userRepository.insert(user);
-    return;
+    return await this.userRepository.insert(user);
   }
 }
