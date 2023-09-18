@@ -32,7 +32,6 @@ export class DatabaseUserRepositories implements UserRepository {
       });
 
     user.password = hashSync(user.password, 10);
-    console.log('p>>>', user.password);
 
     const userResult = await this.prismaService.user.create({
       data: {

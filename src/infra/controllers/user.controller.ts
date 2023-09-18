@@ -9,6 +9,7 @@ import {
 import { UserFactoryModule } from 'src/usecases/factories/user-factory.module';
 import { PostUserUseCase } from 'src/usecases/user/postUser.usecase';
 import { UserDto } from './dto/user.dto';
+import { IsPublic } from 'src/domain/decorators/public.decorator';
 
 @Controller('user')
 export class UserController {
@@ -18,6 +19,7 @@ export class UserController {
   ) {}
 
   @HttpCode(HttpStatus.CREATED)
+  @IsPublic()
   @Post()
   async postUser(@Body() user: UserDto) {
     return await this.postUserUc.execute(user);

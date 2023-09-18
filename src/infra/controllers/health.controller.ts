@@ -8,6 +8,7 @@ import {
   HttpHealthIndicator,
 } from '@nestjs/terminus';
 import { PrismaService } from '../database/prisma/prisma.service';
+import { IsPublic } from 'src/domain/decorators/public.decorator';
 
 @Controller('health-check')
 export class HealthController {
@@ -19,6 +20,7 @@ export class HealthController {
     private readonly prismaService: PrismaService,
   ) {}
 
+  @IsPublic()
   @Get()
   @HealthCheck()
   async check() {

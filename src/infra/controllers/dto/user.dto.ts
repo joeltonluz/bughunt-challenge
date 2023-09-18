@@ -10,7 +10,7 @@ import { UserTypeEnum } from 'src/infra/common/enum/user.enum';
 export class UserDto {
   @MinLength(5)
   @MaxLength(100)
-  @Matches(/^[a-zA-Z\s]+$/, { message: 'author must be only letters' })
+  @Matches(/^[a-zA-Z\s]+$/, { message: 'name must be only letters' })
   name: string;
 
   @MinLength(5)

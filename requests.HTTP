@@ -1,30 +1,47 @@
-@URL=http://localhost:3000
-@BOOK_ID=650712a1950f219d49aa7b06
-### Healthy Check
-GET {{URL}}/health-check
+@HOSTNAME = http://localhost
+@PORT = 3000
+@HOST = {{HOSTNAME}}:{{PORT}}
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTA3YzgyYzBkNTY5NDE4ZTc5ZmY1NGUiLCJlbWFpbCI6ImFkbUBsaXZlLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhZG9yIiwiaWF0IjoxNjk1MDQ5NjMxLCJleHAiOjE2OTUxMzYwMzF9.vvYMtnxgPJsGrIqMl8bNVzyOHvqRy8TkTjs5xx_2Q2s
+
+
+@BOOK_ID=6508421dd5a5e4a632402bc7
+
+### 
+# @name HealthCheck
+GET {{HOST}}/health-check
 
 ###
-POST {{URL}}/books
+# @name PostBook
+POST {{HOST}}/books
 content-type: application/json
+Authorization: Bearer {{TOKEN}}
 
 {
-  "title": "Biblía Sagrada",
-  "author": "Apostolos",
+  "title": "Arquitetura Limpa",
+  "author": "Bob Uncle",
   "available": true
 }
 
 ###
-GET {{URL}}/books
+# @name GestListBOoks
+GET {{HOST}}/books
+Authorization: Bearer {{TOKEN}}
 
 ###
-GET {{URL}}/books/available
+# @name GestListBooksAvailable
+GET {{HOST}}/books/available
+Authorization: Bearer {{TOKEN}}
 
 ###
-GET {{URL}}/books/{{BOOK_ID}}
+# @name GetBOokById
+GET {{HOST}}/books/{{BOOK_ID}}
+Authorization: Bearer {{TOKEN}}
 
 ###
-PUT {{URL}}/books/{{BOOK_ID}}
+# @name UpdateBookById
+PUT {{HOST}}/books/{{BOOK_ID}}
 Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
 
 {
   "title": "Biblía Sagrada",
@@ -32,25 +49,39 @@ Content-Type: application/json
 }
 
 ###
-
-PUT {{URL}}/books/available/{{BOOK_ID}}
+# @name UpdateAvailableBook
+PUT {{HOST}}/books/available/{{BOOK_ID}}
 Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
 
 {
-  "available": false
+  "available": true
 }
 
 ###
-DELETE {{URL}}/books/{{BOOK_ID}}
+# @name DeleteBookById
+DELETE {{HOST}}/books/{{BOOK_ID}}
+Authorization: Bearer {{TOKEN}}
 
-### CADASTRO DE USUÁRIO ###################################################
-POST {{URL}}/user
+### 
+# @name PostNewUser
+POST {{HOST}}/user
 Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
 
 {
   "name": "Joelton Lino Luz",
-  "email": "joelton@live.com",
-  "password": "senha",
+  "email": "adm@live.com",
+  "password": "s3nh@ForTe",
   "type": "administrador"
 }
 
+###
+# @name login
+POST {{HOST}}/login
+Content-Type: application/json
+
+{
+  "email": "adm@live.com",
+  "password": "s3nh@ForTe"
+}

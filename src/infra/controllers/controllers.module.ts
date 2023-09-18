@@ -7,6 +7,8 @@ import { BookController } from './book.controller';
 import { DatabaseModule } from '../database/database.module';
 import { UserFactoryModule } from 'src/usecases/factories/user-factory.module';
 import { UserController } from './user.controller';
+import { AuthController } from './auth.controller';
+import { AuthFactoryModule } from 'src/usecases/factories/auth-factory.module';
 
 @Module({
   imports: [
@@ -15,8 +17,14 @@ import { UserController } from './user.controller';
     DatabaseModule,
     BookFactoryModule.register(),
     UserFactoryModule.register(),
+    AuthFactoryModule.register(),
   ],
-  controllers: [HealthController, BookController, UserController],
+  controllers: [
+    HealthController,
+    BookController,
+    UserController,
+    AuthController,
+  ],
   providers: [],
 })
 export class ControllersModule {}

@@ -13,7 +13,6 @@ export class DatabaseBookRepositories implements BookRepository {
   ) {}
   async insert(book: BookM): Promise<BookM> {
     try {
-      console.log('dentro do insert', book);
       const result = await this.prismaService.book.create({
         data: {
           ...book,
@@ -24,7 +23,6 @@ export class DatabaseBookRepositories implements BookRepository {
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError) {
       }
-      console.log('errrooorrr', error.code);
       throw new Error(error);
     }
   }

@@ -11,3 +11,8 @@ export class UserWithoutPasswordM {
 export class UserM extends UserWithoutPasswordM {
   password: string;
 }
+
+export class UserLoginM {
+  email: string;
+  password: string;
+}
