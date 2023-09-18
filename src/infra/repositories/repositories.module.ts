@@ -6,12 +6,14 @@ import { DatabaseBookRepositories } from './book.repositories';
 import { DatabaseUserRepositories } from './user.repositories';
 import { DatabaseAuthRepositories } from './auth.repositories';
 import { ConfigModule } from '@nestjs/config';
+import { BcryptModule } from '../services/bcrypt/bcrypt.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     DatabaseModule,
     ExceptionsModule,
+    BcryptModule,
     JwtModule.register({
       global: true,
       secret: process.env.SECRET,

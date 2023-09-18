@@ -3,13 +3,14 @@ import { UserM } from 'src/domain/model';
 import { UserRepository } from 'src/domain/repositories';
 import { PrismaService } from '../database/prisma/prisma.service';
 import { ExceptionsService } from '../exceptions/exceptions.service';
-import { hashSync } from 'bcrypt';
+import { BcryptService } from '../services/bcrypt/bcrypt.service';
 
 @Injectable()
 export class DatabaseUserRepositories implements UserRepository {
   constructor(
     private readonly exceptionService: ExceptionsService,
     private readonly prismaService: PrismaService,
+    private readonly bcryptService: BcryptService,
   ) {}
 
   exclude(user: UserM, ...keys) {
@@ -31,8 +32,7 @@ export class DatabaseUserRepositories implements UserRepository {
         message: 'User already exists',
       });
 
-    user.password = hashSync(user.password, 10);
-
+    user.password = await this.bcryptService.hash(user.password);
     const userResult = await this.prismaService.user.create({
       data: {
         ...user,

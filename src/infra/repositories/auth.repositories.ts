@@ -4,38 +4,37 @@ import { PrismaService } from '../database/prisma/prisma.service';
 import { ExceptionsService } from '../exceptions/exceptions.service';
 import { JwtService } from '@nestjs/jwt';
 import { Injectable } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
+import { BcryptService } from '../services/bcrypt/bcrypt.service';
 
 @Injectable()
 export class DatabaseAuthRepositories implements AuthRepository {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly exceptionService: ExceptionsService,
-    private jwtService: JwtService,
+    private readonly jwtService: JwtService,
+    private readonly bcryptService: BcryptService,
   ) {}
 
   async login(login: UserLoginM): Promise<any> {
+    console.log('login', login.email, login.password);
     const user = await this.prismaService.user.findUnique({
       where: {
         email: login.email,
       },
     });
 
-    if (!user)
-      this.exceptionService.badRequestException({
+    if (
+      user &&
+      (await this.bcryptService.compare(login.password, user.password))
+    ) {
+      const payload = { sub: user.id, email: user.email, role: user.type };
+      return {
+        access_token: await this.jwtService.signAsync(payload),
+      };
+    } else {
+      this.exceptionService.unauthorizedException({
         message: 'Wrong username or password',
       });
-
-    const passwordIsMatch = await bcrypt.compare(login.password, user.password);
-
-    if (!passwordIsMatch)
-      this.exceptionService.forbiddenException({
-        message: 'Wrong username or password',
-      });
-
-    const payload = { sub: user.id, email: user.email, role: user.type };
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-    };
+    }
   }
 }
