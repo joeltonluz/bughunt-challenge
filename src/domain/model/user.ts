@@ -1,8 +1,7 @@
 export class UserWithoutPasswordM {
-  id?: string;
+  _id?: string;
   name: string;
   email: string;
-  password: string;
   type: string;
   createdAt?: Date;
   updatedAt?: Date;

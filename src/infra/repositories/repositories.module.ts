@@ -7,6 +7,7 @@ import { DatabaseUserRepositories } from './user.repositories';
 import { DatabaseAuthRepositories } from './auth.repositories';
 import { ConfigModule } from '@nestjs/config';
 import { BcryptModule } from '../services/bcrypt/bcrypt.module';
+import { ConnectionsProviders } from './providers/connection.providers';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { BcryptModule } from '../services/bcrypt/bcrypt.module';
     DatabaseBookRepositories,
     DatabaseUserRepositories,
     DatabaseAuthRepositories,
+    ...ConnectionsProviders,
   ],
   exports: [
     DatabaseBookRepositories,

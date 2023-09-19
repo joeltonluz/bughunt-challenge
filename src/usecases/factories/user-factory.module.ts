@@ -20,8 +20,8 @@ export class UserFactoryModule {
           provide: UserFactoryModule.POST_USER,
           useFactory: (
             logger: LoggerService,
-            bookRepository: DatabaseUserRepositories,
-          ) => new PostUserUseCase(logger, bookRepository),
+            userRepository: DatabaseUserRepositories,
+          ) => new PostUserUseCase(logger, userRepository),
         },
       ],
       exports: [UserFactoryModule.POST_USER],

@@ -1,26 +1,24 @@
-import { UserLoginM } from 'src/domain/model';
+import { UserLoginM, UserM } from 'src/domain/model';
 import { AuthRepository } from 'src/domain/repositories/auth.repository';
-import { PrismaService } from '../database/prisma/prisma.service';
 import { ExceptionsService } from '../exceptions/exceptions.service';
 import { JwtService } from '@nestjs/jwt';
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { BcryptService } from '../services/bcrypt/bcrypt.service';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class DatabaseAuthRepositories implements AuthRepository {
   constructor(
-    private readonly prismaService: PrismaService,
     private readonly exceptionService: ExceptionsService,
     private readonly jwtService: JwtService,
     private readonly bcryptService: BcryptService,
+    @Inject('USER_MODEL')
+    private readonly userModel: Model<UserM>,
   ) {}
 
   async login(login: UserLoginM): Promise<any> {
-    console.log('login', login.email, login.password);
-    const user = await this.prismaService.user.findUnique({
-      where: {
-        email: login.email,
-      },
+    const user = await this.userModel.findOne({
+      email: login.email,
     });
 
     if (

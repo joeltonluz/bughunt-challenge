@@ -1,31 +1,22 @@
-import { Injectable } from '@nestjs/common';
-import { UserM } from 'src/domain/model';
+import { Inject, Injectable } from '@nestjs/common';
+import { UserM, UserWithoutPasswordM } from 'src/domain/model';
 import { UserRepository } from 'src/domain/repositories';
-import { PrismaService } from '../database/prisma/prisma.service';
 import { ExceptionsService } from '../exceptions/exceptions.service';
 import { BcryptService } from '../services/bcrypt/bcrypt.service';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class DatabaseUserRepositories implements UserRepository {
   constructor(
     private readonly exceptionService: ExceptionsService,
-    private readonly prismaService: PrismaService,
     private readonly bcryptService: BcryptService,
+    @Inject('USER_MODEL')
+    private readonly userModel: Model<UserM>,
   ) {}
 
-  exclude(user: UserM, ...keys) {
-    for (const key of keys) {
-      delete user[key];
-    }
-    return user;
-  }
-
-  async insert(user: UserM): Promise<any> {
-    const hasUser = await this.prismaService.user.findUnique({
-      where: {
-        email: user.email,
-      },
-    });
+  async insert(user: UserM): Promise<UserWithoutPasswordM> {
+    const { email } = user;
+    const hasUser = await this.userModel.findOne({ email });
 
     if (hasUser)
       this.exceptionService.badRequestException({
@@ -33,12 +24,14 @@ export class DatabaseUserRepositories implements UserRepository {
       });
 
     user.password = await this.bcryptService.hash(user.password);
-    const userResult = await this.prismaService.user.create({
-      data: {
-        ...user,
-      },
-    });
+    const result = new this.userModel(user);
+    result.save();
 
-    return this.exclude(userResult, 'password');
+    return {
+      _id: String(result._id),
+      name: result.name,
+      email: result.email,
+      type: result.type,
+    };
   }
 }

@@ -20,8 +20,8 @@ export class AuthFactoryModule {
           provide: AuthFactoryModule.POST_LOGIN,
           useFactory: (
             logger: LoggerService,
-            bookRepository: DatabaseAuthRepositories,
-          ) => new PostLoginUseCase(logger, bookRepository),
+            authRepository: DatabaseAuthRepositories,
+          ) => new PostLoginUseCase(logger, authRepository),
         },
       ],
       exports: [AuthFactoryModule.POST_LOGIN],

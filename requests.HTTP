@@ -1,10 +1,10 @@
 @HOSTNAME = http://localhost
 @PORT = 3000
 @HOST = {{HOSTNAME}}:{{PORT}}
-@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTA3YzgyYzBkNTY5NDE4ZTc5ZmY1NGUiLCJlbWFpbCI6ImFkbUBsaXZlLmNvbSIsInJvbGUiOiJhZG1pbmlzdHJhZG9yIiwiaWF0IjoxNjk1MDQ5NjMxLCJleHAiOjE2OTUxMzYwMzF9.vvYMtnxgPJsGrIqMl8bNVzyOHvqRy8TkTjs5xx_2Q2s
+@TOKEN=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTA5MGUxMDQ3NTI4MDc1MjIyMWQ4N2YiLCJlbWFpbCI6ImNsaWVudGVAbGl2ZS5jb20iLCJyb2xlIjoiY2xpZW50ZSIsImlhdCI6MTY5NTA5MjQzNSwiZXhwIjoxNjk1MTc4ODM1fQ.Y-gnWxD40YY72ZHytDBUUfY15PWsmm4CI6F5jR8ClVg
 
 
-@BOOK_ID=6508421dd5a5e4a632402bc7
+@BOOK_ID=65090e56475280752221d884
 
 ### 
 # @name HealthCheck
@@ -17,8 +17,8 @@ content-type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "title": "Arquitetura Limpa",
-  "author": "Bob Uncle",
+  "title": "Arquitetura Suja",
+  "author": "Bobo Corte",
   "available": true
 }
 
@@ -33,7 +33,7 @@ GET {{HOST}}/books/available
 Authorization: Bearer {{TOKEN}}
 
 ###
-# @name GetBOokById
+# @name GetBookById
 GET {{HOST}}/books/{{BOOK_ID}}
 Authorization: Bearer {{TOKEN}}
 
@@ -44,8 +44,8 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "title": "Biblía Sagrada",
-  "author": "Apostolos"
+  "title": "Arquitetura Suja!",
+  "author": "Bob Thinx"
 }
 
 ###
@@ -55,7 +55,7 @@ Content-Type: application/json
 Authorization: Bearer {{TOKEN}}
 
 {
-  "available": true
+  "available": false
 }
 
 ###
@@ -71,9 +71,9 @@ Authorization: Bearer {{TOKEN}}
 
 {
   "name": "Joelton Lino Luz",
-  "email": "adm@live.com",
+  "email": "cliente@live.com",
   "password": "s3nh@ForTe",
-  "type": "administrador"
+  "type": "cliente"
 }
 
 ###
@@ -82,6 +82,6 @@ POST {{HOST}}/login
 Content-Type: application/json
 
 {
-  "email": "adm@live.com",
+  "email": "cliente@live.com",
   "password": "s3nh@ForTe"
 }

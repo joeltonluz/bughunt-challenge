@@ -1,5 +1,5 @@
 import { UserM, UserWithoutPasswordM } from '../model';
 
 export interface UserRepository {
-  insert(user: UserM): Promise<UserM>;
+  insert(user: UserM): Promise<UserWithoutPasswordM>;
 }
